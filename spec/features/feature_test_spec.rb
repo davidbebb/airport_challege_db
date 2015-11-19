@@ -4,19 +4,11 @@ require 'spec_helper'
 require 'capybara/rspec'
 
 feature "Airport Challenge feature test" do
-  # scenario "User creates new plane and gets flying plane" do
-  #   plane=Plane.new
-  #   expect(plane).to be_an_instance_of Plane
-  #   expect(plane.status).to eq(:flying)
-  # end
-  # scenario "User creates new airport and gets airport" do
-  #   expect(Airport.new).to be_an_instance_of Airport
-  # end
+
   scenario "User lands plane if space and good weather - simple case" do
     plane=Plane.new
     airport=Airport.new
     allow(airport).to receive(:report_weather).and_return(:sunny)
-    allow(airport).to receive(:full?).and_return(false)
     expect(airport.land_plane(plane)).to include(plane)
   end
 
@@ -40,13 +32,5 @@ feature "Airport Challenge feature test" do
     expect(p3.status).to eq(:landed)
     expect(p1.status).to eq(:flying)
   end
-
-
-  # scenario "User creates new airport" do
-  #   expect(Airport.new).to be_an_instance_of Airport
-  # end
-  # scenario "User creates new airport" do
-  #   expect(Airport.new).to be_an_instance_of Airport
-  # end
 
 end

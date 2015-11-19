@@ -1,4 +1,6 @@
+require 'weather'
 class Airport
+  extend Weather
 
   attr_reader :capacity
 
@@ -6,6 +8,7 @@ class Airport
     @capacity=5
     @planes_at_airport=[]
     @weather=:sunny
+
   end
 
   def land_plane(plane)
@@ -16,15 +19,11 @@ class Airport
     @planes_at_airport<<plane
   end
 
-  def launch_plane(p)
+  def launch_plane(plane)
     fail 'Weather is stormy, do not take off' if report_weather==:stormy
-    fail 'Plane is not here' if @planes_at_airport == @planes_at_airport-[p]
-    p.take_off
-    @planes_at_airport-=[p]
-  end
-
-  def report_weather
-    if rand(0..99)==0 then @weather=:stormy else @weather=:sunny end
+    fail 'Plane is not here' if @planes_at_airport == @planes_at_airport-[plane]
+    plane.take_off
+    @planes_at_airport-=[plane]
   end
 
   private
@@ -32,7 +31,5 @@ class Airport
   def full?
     if (@planes_at_airport.length+1)>@capacity then true else false end
   end
-
-
 
 end
